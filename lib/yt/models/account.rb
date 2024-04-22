@@ -80,6 +80,9 @@ module Yt
             auth: self
           )
         end
+      ensure
+        file.close unless file.nil? or file.closed?
+        File.delete(file) if File.exists? file
       end
 
       # Creates a playlist in the account’s channel.
