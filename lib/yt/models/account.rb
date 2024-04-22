@@ -1,4 +1,5 @@
 require 'yt/models/base'
+require 'open-uri'
 
 module Yt
   module Models
@@ -69,7 +70,7 @@ module Yt
       # @option params [Boolean] :self_declared_made_for_kids The video’s made for kids self-declaration.
       # @return [Yt::Models::Video] the newly uploaded video.
       def upload_video(path_or_url, params = {})
-        file = URI.open(path_or_url)
+        file = open(path_or_url)
         session = resumable_sessions.insert file.size, upload_body(params)
 
         session.update(body: file) do |data|
