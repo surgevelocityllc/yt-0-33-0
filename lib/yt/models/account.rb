@@ -81,8 +81,10 @@ module Yt
           )
         end
       ensure
-        file.close unless file.nil? or file.closed?
-        File.delete(file) if File.exists? file
+        unless file.nil?
+          file.close unless file.closed?
+          File.delete(file) if File.exists?(file.path)
+        end
       end
 
       # Creates a playlist in the account’s channel.
